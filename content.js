@@ -27,6 +27,7 @@ function getHost(script_src) {
   var regexp = /\/\/([^\/]*)\//;
   return script_src.match(regexp)?script_src.match(regexp)[1]:''
 }
+// Check if it is settings.txt file
 function isTxt(script_src) {
   var regexp = /(.*settings\.txt)/;
   return script_src.match(regexp)?script_src.match(regexp)[1]:''
