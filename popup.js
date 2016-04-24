@@ -9,7 +9,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   var url = sender.url;
   var info = '<strong><a href="' + url + '">' + url + '</a>'; 
   if (!isEmpty(request)) {
-    info +=  ' -  WalkMe enabled</strong><br>'
+    info +=  ' -  WalkMe enabled</strong><br>Details:<br>'
     for (var key in request) {
       if (key !== 'json')
         info += '<strong>' + key + '</strong>: ' + request[key] + '<br>'
@@ -59,27 +59,20 @@ function getObject(obj, ekey) {
 }
 
 function infoElement(key, value_in_key) {
-  console.log(value_in_key);
-  var result = '<strong>'+key+'</strong>:';
+  var result = '<p><strong>'+key+'</strong>:';
   if (typeof value_in_key === 'object') {
     if (value_in_key instanceof Array) {
       for (var i=0; i<value_in_key.length; i++) {
-        console.log(i, value_in_key[i]);
         result += infoElement(i, value_in_key[i]);
       }
     }
-    else if (value_in_key instanceof Object) {
+    else {
       for (var prop in value_in_key) {
-        result += infoElement(prop, value_in_key);
+        result += infoElement(prop, value_in_key[prop]);
       }
     }
-        // result += prop + ':' + value_in_key[prop]
-    // {
-
-    // }
-    // result += obj[ekey][0].url
-  }
-  result += value_in_key
+  } else
+    result += value_in_key + '</p>'
   return result;
 }
 
